@@ -25,6 +25,17 @@ from typing import Dict, List, Tuple
 
 import numpy as np
 
+# Custom JSON encoder to handle numpy types
+class NumpyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        elif isinstance(obj, np.floating):
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return super().default(obj)
+
 # Conditionally import cudaq (may not be available on all systems)
 try:
     import cudaq
@@ -283,11 +294,11 @@ def main():
     
     if args.output:
         with open(args.output, 'w') as f:
-            json.dump(results, f, indent=2)
+            json.dump(results, f, indent=2, cls=NumpyEncoder)
         print(f"\nResults saved to: {args.output}")
     else:
         print("\nResults:")
-        print(json.dumps(results, indent=2))
+        print(json.dumps(results, indent=2, cls=NumpyEncoder))
 
 
 if __name__ == "__main__":
