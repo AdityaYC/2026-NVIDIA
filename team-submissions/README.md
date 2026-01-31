@@ -18,31 +18,30 @@ The Project Lead should fork this repository and share the forked repository lin
 
 ## Evaluation Criteria: How You Will Be Graded
 
-This challenge is graded on **Rigorous Engineering**, not just raw speed. We are simulating a professional delivery pipeline. Your score is split between your **Planning (35%)** and your **Execution (65%)**.
+This challenge is graded on **Rigorous Engineering**, not just raw speed. We are simulating a professional delivery pipeline. Your score is split between your planning (40%) and final product(60%).
 
-### Part 1: The Plan (40% - Early Submission)
+### Phase 1: The Plan (40% - Early Submission)
 *Goal: Prove you have a viable strategy before we release GPU credits.*
 
-* **The Self-Validation (Milestone 1):** Did you prove your tutorial baseline was correct? We look for rigorous checks (e.g., symmetry verification, small N brute-force) rather than just "it looks right."
-* **The PRD Quality (Milestone 2):**
+* **The Self-Validation from Milestone 1 [5 points]:** Did you prove your tutorial baseline was correct? We look for rigorous checks (e.g., symmetry verification, small N brute-force) rather than just "it looks right."
+* **The PRD Quality from Milestone 2 [35 points]:**
     * **Architecture:** Did you cite literature to justify your quantum algorithm choice? Deep research drives high scores. We explicitly reward teams that take Scientific Risks over those who play it safe.
     * **Acceleration:** Do you have a concrete plan for GPU memory management and parallelization?
     * **Verification:** Did you commit to specific physical correctness checks (e.g., `energy(x) == energy(-x)`)?
     * **Success Metrics:** Did you define quantifiable targets?
 
 
-### Part 2: The Product (60% - Final Submission)
+### Phase 2: The Product (60% - Final Submission)
 *Goal: Prove your solution works, scales, and is verified.*
 
-* **Performance & Scale:**
+* **Performance, Scale, and Creativity [20 points]:**
     * Does the solution scale to larger $N$?
     * Did you successfully accelerate the *Classical* component (e.g., using `cupy` for batch neighbor evaluation) or did you only accelerate the quantum circuit?
-* **Algorithmic Novelty:**
     * We reward the **rigorous implementation of creative ideas**. If your novel experiment fails to beat the baseline, document *why* in your report. A "Negative Result" backed by great engineering is a success.
-* **Verification:**
+* **Verification [20 points]:**
     * How much of your code is covered by the `tests.py` suite?
     * Does the test suite catch physical violations?
-* **Communication & Analysis:**
+* **Communication & Analysis [20 points]:**
     * **Visualizations:** We expect professional data plotting. Do not just paste screenshots of code. We want to see generated plots (Time vs. N, Approximation Ratio vs. N) with clearly labeled axes comparing CPU vs. GPU performance.
     * **The Narrative:** Your presentation must tell the story of "The Plan & The Pivot." Did you identify *why* you had to change your strategy?
     * **The AI Report:** Your `AI_REPORT.md` must demonstrate *how* you verified AI-generated code, including specific examples of "Wins" and "Hallucinations."
