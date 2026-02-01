@@ -4,17 +4,23 @@
 
 **Members:** Aditya Punjani (Lead), Furkan Eşref Yazıcı, Alexandre Boutot, Shreya Savadatti
 
----
 
-## Quick Start for Judges
+
+# How to Run
+
+### 1. Verification (CPU)
+
+Run the test suite to verify the logic and catch AI hallucinations:
 
 ```bash
-# Run tests (24/24 pass locally, 26/26 on qBraid with CUDA-Q)
-pip install pytest numpy
-pytest tests.py -v
+cd Phase_2 && python3 tests.py
+```
 
-# Run GPU benchmark (requires NVIDIA GPU)
-python3 run_gpu_benchmark.py --mode gpu --n 20 --output results.json
+### 2. GPU Benchmark
+Run the main accelerated benchmark:
+
+```bash
+cd Phase_2 && python3 run_gpu_benchmark.py --mode gpu --n 20
 ```
 
 ---
@@ -23,29 +29,31 @@ python3 run_gpu_benchmark.py --mode gpu --n 20 --output results.json
 
 ```
 .
-├── labs_solver/               # Modular Python package
-│   ├── __init__.py
-│   ├── energy.py              # LABS energy calculation
-│   ├── mts.py                 # Memetic Tabu Search (CPU)
-│   ├── mts_cupy.py            # GPU-accelerated MTS (CuPy)
-│   └── quantum.py             # CUDA-Q kernels
-├── tests.py                   # Pytest test suite (7 test classes)
-├── run_gpu_benchmark.py       # Main GPU benchmark script
-├── fast_benchmark.py          # Optimized benchmark for larger N
-├── mts_benchmark.py           # Standalone MTS benchmark
-├── results_n25.json           # Quantum GPU benchmark (N=25)
-├── results_n30_quantum.json   # Quantum CPU benchmark (N=30)
-├── mts_results.json           # MTS benchmark results
-├── mts_results_n35.json       # MTS benchmark (N=35)
-├── generate_charts.py         # Script to plot benchmark results
-├── figures/chart_*.png        # Generated benchmark visualizations
-├── AI_REPORT.md               # AI Post-Mortem Report
-├── PRESENTATION_SLIDES.md     # Presentation outline
-├── Quantum_NVIDIA_IQUHACKS_Presentation.pdf # Final Presentation PDF
-├── TEST_SUITE.md              # Detailed verification docs
-├── PRDfinal.md                # Phase 1 Product Requirements
-├── 01_quantum_enhanced_optimization_LABS_final.ipynb # Phase 1 Notebook
-└── README.md                  # This file
+├── README.md                  # Project overview and navigation
+├── Phase_1/
+│   ├── PRDfinal.md              # Phase 1: Product Requirements Document
+│   └── 01_quantum_enhanced_optimization_LABS_final.ipynb # Phase 1: Initial quantum notebook
+├── Phase_2/
+│   ├── labs_solver/             # Source code package
+│   │   ├── __init__.py
+│   │   ├── energy.py              # LABS energy calculation
+│   │   ├── mts.py                 # Memetic Tabu Search (CPU)
+│   │   ├── mts_cupy.py            # GPU-accelerated MTS (CuPy)
+│   │   └── quantum.py             # CUDA-Q kernels
+│   ├── tests.py                 # Verification suite
+│   ├── run_gpu_benchmark.py     # Main benchmark script
+│   ├── fast_benchmark.py        # Optimized benchmark for larger N
+│   ├── mts_benchmark.py         # Standalone MTS benchmark
+│   ├── results_n25.json         # Quantum GPU benchmark (N=25)
+│   ├── results_n30_quantum.json # Quantum CPU benchmark (N=30)
+│   ├── mts_results.json         # MTS benchmark results
+│   ├── mts_results_n35.json     # MTS benchmark (N=35)
+│   ├── generate_charts.py       # Script to plot benchmark results
+│   ├── figures/                 # Generated charts
+│   ├── AI_REPORT.md             # AI Post-Mortem Report
+│   ├── PRESENTATION_SLIDES.md   # Presentation outline
+│   ├── TEST_SUITE.md            # Detailed verification docs
+│   └── Quantum_NVIDIA_IQUHACKS_Presentation.pdf # Final Presentation PDF
 ```
 
 ---
@@ -61,6 +69,8 @@ python3 run_gpu_benchmark.py --mode gpu --n 20 --output results.json
 | 30 | qBraid CPU | **61.68s** | 3 | 187 | ✅ |
 | 35 | — | — | — | — | ❌ Memory limit (~550GB required) |
 | 40 | — | — | — | — | ❌ Memory limit (~16TB required) |
+
+> **Note:** See `Phase_2/results_n25.json` and `Phase_2/results_n30_quantum.json` for raw data.
 
 ### MTS (Classical) Benchmarks
 
@@ -80,13 +90,13 @@ python3 run_gpu_benchmark.py --mode gpu --n 20 --output results.json
 
 ### Visualizations
 
-![Quantum Circuit Time vs N](figures/chart_quantum_time.png)
+![Quantum Circuit Time vs N](Phase_2/figures/chart_quantum_time.png)
 *Quantum circuit execution time showing GPU vs CPU performance*
 
-![MTS Algorithm Scaling](figures/chart_mts_time.png)
+![MTS Algorithm Scaling](Phase_2/figures/chart_mts_time.png)
 *Classical MTS algorithm shows linear scaling with problem size*
 
-![Combined Performance](figures/chart_combined.png)
+![Combined Performance](Phase_2/figures/chart_combined.png)
 *Side-by-side comparison of quantum and classical performance*
 
 ---
@@ -110,34 +120,32 @@ python3 run_gpu_benchmark.py --mode gpu --n 20 --output results.json
 
 ## Key Accomplishments
 
-1. **GPU Migration**: Successfully migrated to NVIDIA L4 on Brev
-2. **Quantum Acceleration**: Ran counterdiabatic circuit on GPU (7.77s for N=20)
-3. **Classical GPU Acceleration**: Implemented CuPy-based MTS in `mts_cupy.py`
-4. **Rigorous Testing**: 26 tests covering energy function, symmetries, and convergence
-5. **Documentation**: Full AI report, presentation, and README
+1.  **GPU Migration**: Successfully migrated to NVIDIA L4 on Brev
+2.  **Quantum Acceleration**: Ran counterdiabatic circuit on GPU (7.77s for N=20)
+3.  **Classical GPU Acceleration**: Implemented CuPy-based MTS in `mts_cupy.py`
+4.  **Rigorous Testing**: 26 tests covering energy function, symmetries, and convergence
+5.  **Documentation**: Full AI report, presentation, and README
 
 ---
 ## Hardware Used
 
-- **CPU Testing**: qBraid (CPU-only CUDA-Q sandbox)
-- **GPU Testing**: Brev L4 GPU (CUDA 12.8, 23GB VRAM)
+-   **CPU Testing**: qBraid (CPU-only CUDA-Q sandbox)
+-   **GPU Testing**: Brev L4 GPU (CUDA 12.8, 23GB VRAM)
 
 ---
 
 ## Files to Review
-### Phase 1
+### Phase 1 Deliverables
+1.  **[PRDfinal.md](Phase_1/PRDfinal.md)** - Product Requirements Document
+2.  **[01_quantum_enhanced_optimization.ipynb](Phase_1/01_quantum_enhanced_optimization_LABS_final.ipynb)** - Initial Notebook
 
-1. **[PRDfinal.md](PRDfinal.md)** - Product Requirements Document (Phase 1)
-2. **[01_quantum_enhanced_optimization_LABS_final.ipynb](01_quantum_enhanced_optimization_LABS_final.ipynb)** - Phase 1 Tutorial Notebook (with Self-Validation)
-
-### Phase 2
-
-1. **[tests.py](tests.py)** - Test suite demonstrating verification approach
-2. **[AI_REPORT.md](AI_REPORT.md)** - AI workflow, verification strategy, Win/Learn/Fail log
-3. **[results_n25.json](results_n25.json)** - Raw GPU benchmark data
-4. **[PRESENTATION_SLIDES.md](PRESENTATION_SLIDES.md)** - Presentation outline
-5. **[TEST_SUITE.md](TEST_SUITE.md)** - Detailed test suite documentation
-6. **[Quantum_NVIDIA_IQUHACKS_Presentation.pdf](Quantum_NVIDIA_IQUHACKS_Presentation.pdf)** - Final Presentation Slides
+### Phase 2 Deliverables
+1.  **[tests.py](Phase_2/tests.py)** - Verification Suite (26 tests)
+2.  **[AI_REPORT.md](Phase_2/AI_REPORT.md)** - AI Post-Mortem Report
+3.  **[results_n25.json](Phase_2/results_n25.json)** - GPU Benchmark Data
+4.  **[PRESENTATION_SLIDES.md](Phase_2/PRESENTATION_SLIDES.md)** - Project Story
+5.  **[TEST_SUITE.md](Phase_2/TEST_SUITE.md)** - Test Documentation
+6.  **[Quantum_NVIDIA_IQUHACKS_Presentation.pdf](Phase_2/Quantum_NVIDIA_IQUHACKS_Presentation.pdf)** - Final Presentation PDF
 
 ---
 
