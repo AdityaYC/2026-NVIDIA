@@ -136,7 +136,7 @@ python3 run_gpu_benchmark.py --mode gpu --n 20
 
 ## **Quantum Circuit Performance**
 
-![Quantum Circuit Time vs Problem Size](chart_quantum_time.png)
+![Quantum Circuit Time vs Problem Size](figures/chart_quantum_time.png)
 
 ### Benchmark Data
 | N | Platform | Time | Speedup |
@@ -156,7 +156,7 @@ python3 run_gpu_benchmark.py --mode gpu --n 20
 
 ## **Memetic Tabu Search Scaling**
 
-![MTS Algorithm Time vs Problem Size](chart_mts_time.png)
+![MTS Algorithm Time vs Problem Size](figures/chart_mts_time.png)
 
 ### Benchmark Data
 | N | Time | Best Energy | Scaling |
@@ -176,7 +176,7 @@ python3 run_gpu_benchmark.py --mode gpu --n 20
 
 ## **Memory Requirements**
 
-![Memory Scaling for Quantum Simulation](chart_memory.png)
+![Memory Scaling for Quantum Simulation](figures/chart_memory.png)
 
 ### The Math
 | N | States (2^N) | Memory |

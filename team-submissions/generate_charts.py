@@ -11,6 +11,8 @@ Creates charts showing:
 import matplotlib.pyplot as plt
 import numpy as np
 
+import os
+
 # Set style
 plt.style.use('seaborn-v0_8-darkgrid')
 plt.rcParams['figure.figsize'] = (10, 6)
@@ -66,8 +68,9 @@ def create_quantum_time_chart():
     ax.legend(handles=legend_elements, loc='upper left')
     
     plt.tight_layout()
-    plt.savefig('chart_quantum_time.png', dpi=150, bbox_inches='tight')
-    print("Saved: chart_quantum_time.png")
+    plt.tight_layout()
+    plt.savefig('figures/chart_quantum_time.png', dpi=150, bbox_inches='tight')
+    print("Saved: figures/chart_quantum_time.png")
     plt.close()
 
 def create_mts_time_chart():
@@ -89,8 +92,9 @@ def create_mts_time_chart():
     ax.legend()
     
     plt.tight_layout()
-    plt.savefig('chart_mts_time.png', dpi=150, bbox_inches='tight')
-    print("Saved: chart_mts_time.png")
+    plt.tight_layout()
+    plt.savefig('figures/chart_mts_time.png', dpi=150, bbox_inches='tight')
+    print("Saved: figures/chart_mts_time.png")
     plt.close()
 
 def create_energy_chart():
@@ -111,8 +115,9 @@ def create_energy_chart():
     ax.set_xticks(mts_data['N'])
     
     plt.tight_layout()
-    plt.savefig('chart_energy.png', dpi=150, bbox_inches='tight')
-    print("Saved: chart_energy.png")
+    plt.tight_layout()
+    plt.savefig('figures/chart_energy.png', dpi=150, bbox_inches='tight')
+    print("Saved: figures/chart_energy.png")
     plt.close()
 
 def create_memory_chart():
@@ -143,8 +148,9 @@ def create_memory_chart():
     ax.legend(loc='upper left')
     
     plt.tight_layout()
-    plt.savefig('chart_memory.png', dpi=150, bbox_inches='tight')
-    print("Saved: chart_memory.png")
+    plt.tight_layout()
+    plt.savefig('figures/chart_memory.png', dpi=150, bbox_inches='tight')
+    print("Saved: figures/chart_memory.png")
     plt.close()
 
 def create_combined_comparison():
@@ -177,11 +183,15 @@ def create_combined_comparison():
     ax2.set_xticks(mts_data['N'])
     
     plt.tight_layout()
-    plt.savefig('chart_combined.png', dpi=150, bbox_inches='tight')
-    print("Saved: chart_combined.png")
+    plt.tight_layout()
+    plt.savefig('figures/chart_combined.png', dpi=150, bbox_inches='tight')
+    print("Saved: figures/chart_combined.png")
     plt.close()
 
 if __name__ == "__main__":
+    # Create figures directory if it doesn't exist
+    os.makedirs('figures', exist_ok=True)
+    
     print("Generating visualization charts...")
     create_quantum_time_chart()
     create_mts_time_chart()
