@@ -1,0 +1,14 @@
+{
+    "N=35": {
+        "N": 35,
+        "time_seconds": 10.560092687606812,
+        "best_energy": 97,
+        "known_optimum": -1,
+        "gap": 98,
+        "mean_pop_energy": 507.4,
+        "std_pop_energy": 332.66295255107684,
+        "iterations": 50,
+        "population_size": 20,
+        "timestamp": "2026-02-01T04:41:52.455453"
+    }
+}
