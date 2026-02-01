@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "N": 20,
+    "mode": "gpu",
+    "target": "nvidia",
+    "timestamp": "2026-01-31T23:58:39.497460"
+  },
+  "quantum": {
+    "N": 20,
+    "n_steps": 30,
+    "shots": 1000,
+    "quantum_time_seconds": 7.7703845500946045,
+    "unique_samples": 999,
+    "min_energy": 90,
+    "mean_energy_top20": 271.0,
+    "best_bitstring": "01000111000000000100"
+  },
+  "classical_mts": {
+    "N": 20,
+    "population_size": 20,
+    "iterations": 50,
+    "seeded": false,
+    "mts_time_seconds": 1.7798774242401123,
+    "best_energy": 26,
+    "mean_population_energy": 139.4,
+    "std_population_energy": 64.10335404641476
+  },
+  "quantum_enhanced_mts": {
+    "N": 20,
+    "population_size": 20,
+    "iterations": 50,
+    "seeded": true,
+    "mts_time_seconds": 1.7572176456451416,
+    "best_energy": 26,
+    "mean_population_energy": 175.8,
+    "std_population_energy": 111.29402499685237
+  },
+  "improvement": 0
+}
