@@ -1,0 +1,26 @@
+{
+  "N=30": {
+    "N": 30,
+    "time_seconds": 6.392329454421997,
+    "best_energy": 83,
+    "known_optimum": -1,
+    "gap": 84,
+    "mean_pop_energy": 389.8,
+    "std_pop_energy": 233.73523482778543,
+    "iterations": 50,
+    "population_size": 20,
+    "timestamp": "2026-02-01T04:22:20.690319"
+  },
+  "N=40": {
+    "N": 40,
+    "time_seconds": 16.518640756607056,
+    "best_energy": 128,
+    "known_optimum": -1,
+    "gap": 129,
+    "mean_pop_energy": 674.6,
+    "std_pop_energy": 369.47806430152247,
+    "iterations": 50,
+    "population_size": 20,
+    "timestamp": "2026-02-01T04:22:37.213742"
+  }
+}
