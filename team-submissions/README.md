@@ -68,6 +68,17 @@ sample/
 - **GPU acceleration**: 7.77s on GPU vs. 61.68s on CPU for comparable N
 - **MTS scales linearly**: Classical algorithm handles N=40 in 16.5s
 
+### Visualizations
+
+![Quantum Circuit Time vs N](chart_quantum_time.png)
+*Quantum circuit execution time showing GPU vs CPU performance*
+
+![MTS Algorithm Scaling](chart_mts_time.png)
+*Classical MTS algorithm shows linear scaling with problem size*
+
+![Combined Performance](chart_combined.png)
+*Side-by-side comparison of quantum and classical performance*
+
 ---
 
 ## Test Coverage
