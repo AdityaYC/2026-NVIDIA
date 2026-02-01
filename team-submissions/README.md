@@ -1,50 +1,105 @@
-## Deliverables Checklist
+# NVIDIA iQuHACK 2026 - Phase 2 Submission
 
-**Step 0: (Due by noon eastern Sat Jan 31)**
-The Project Lead should fork this repository and share the forked repository link with the NVIDIA judges in a DM on discord (`Monica-NVIDIA`, `Linsey-NV Mentor`, and `Iman_nvidia`).  
+## Team QuantumSpark - QRadarX Project
 
-**Phase 1 Submission (Due 10pm eastern Sat Jan 31):**
-(To be judged to obtain access to GPUs with Brev credits)
-* [ ] **Tutorial Notebook:** Completed [01_quantum_enhanced_optimization_LABS.ipynb](https://github.com/iQuHACK/2026-NVIDIA/blob/main/tutorial_notebook/01_quantum_enhanced_optimization_LABS.ipynb) including your "Self-Validation" section.
-* [ ] **PRD:** `PRD.md` defining your plan.  See [Milestone 1 in the challenge description]([LABS-challenge-Phase1.md](https://github.com/iQuHACK/2026-NVIDIA/blob/main/LABS-challenge-Phase1.md)) and the [PRD-template.md](PRD-template.md) file.
-* [ ] **Notify the judges in discord:** DM `Monica-NVIDIA`, `Linsey-NV Mentor`, and `Iman_nvidia` that your phase 1 deliverables are ready to be judged.   
+**Members:** Aditya Punjani (Lead), Furkan Eşref Yazıcı, Alexandre Boutot, Shreya Savadatti
 
-**Phase 2 Submission (Due 10am eastern Sun Feb 1):**
+---
 
-* [ ] **Final Code:** Notebooks and scripts for the Milestone 3 implementation. Add these files to a folder in this directory.  Include a README.md to guide the judges if you have multiple files.
-* [ ] **Test Suite:** `tests.py` or other documentation or scripts used for verifying your work. 
-* [ ] **AI Report:** `AI_REPORT.md` (See [AI_REPORT-template.md](AI_REPORT-template.md)).
-* [ ] **Presentation:** Slides (Live) or MP4 (Remote).
+## Quick Start for Judges
 
-## Evaluation Criteria: How You Will Be Graded
+```bash
+# Run tests (24/24 pass locally, 26/26 on qBraid with CUDA-Q)
+pip install pytest numpy
+pytest tests.py -v
 
-This challenge is graded on **Rigorous Engineering**, not just raw speed. We are simulating a professional delivery pipeline. Your score is split between your planning (40%) and final product(60%).
+# Run GPU benchmark (requires NVIDIA GPU)
+python3 run_gpu_benchmark.py --mode gpu --n 20 --output results.json
+```
 
-### Phase 1: The Plan (40% - Early Submission)
-*Goal: Prove you have a viable strategy before we release GPU credits.*
+---
 
-* **The Self-Validation from Milestone 1 [5 points]:** Did you prove your tutorial baseline was correct? We look for rigorous checks (e.g., symmetry verification, small N brute-force) rather than just "it looks right."
-* **The PRD Quality from Milestone 2 [35 points]:**
-    * **Architecture:** Did you cite literature to justify your quantum algorithm choice? Deep research drives high scores. We explicitly reward teams that take Scientific Risks over those who play it safe.
-    * **Acceleration:** Do you have a concrete plan for GPU memory management and parallelization?
-    * **Verification:** Did you commit to specific physical correctness checks (e.g., `energy(x) == energy(-x)`)?
-    * **Success Metrics:** Did you define quantifiable targets?
+## File Structure
 
+```
+sample/
+├── labs_solver/               # Modular Python package
+│   ├── __init__.py
+│   ├── energy.py              # LABS energy calculation
+│   ├── mts.py                 # Memetic Tabu Search (CPU)
+│   ├── mts_cupy.py            # GPU-accelerated MTS (CuPy)
+│   └── quantum.py             # CUDA-Q kernels
+├── tests.py                   # Pytest test suite (7 test classes)
+├── run_gpu_benchmark.py       # Main GPU benchmark script
+├── fast_benchmark.py          # Optimized benchmark for larger N
+├── results_n20.json           # GPU benchmark results
+├── AI_REPORT.md               # AI Post-Mortem Report
+├── PRESENTATION.md            # Presentation outline
+└── README.md                  # This file
+```
 
-### Phase 2: The Product (60% - Final Submission)
-*Goal: Prove your solution works, scales, and is verified.*
+---
 
-* **Performance, Scale, and Creativity [20 points]:**
-    * Does the solution scale to larger $N$?
-    * Did you successfully accelerate the *Classical* component (e.g., using `cupy` for batch neighbor evaluation) or did you only accelerate the quantum circuit?
-    * We reward the **rigorous implementation of creative ideas**. If your novel experiment fails to beat the baseline, document *why* in your report. A "Negative Result" backed by great engineering is a success.
-    * Make sure to document which GPUs you used for each of your results for fair comparisons
-* **Verification [20 points]:**
-    * How much of your code is covered by the `tests.py` suite?
-    * Does the test suite catch physical violations?
-* **Communication & Analysis [20 points]:**
-    * **Visualizations:** We expect professional data plotting. Do not just paste screenshots of code. We want to see generated plots (Time vs. N, Approximation Ratio vs. N) with clearly labeled axes comparing CPU vs. GPU performance.
-    * **The Narrative:** Your presentation must tell the story of "The Plan & The Pivot." Did you identify *why* you had to change your strategy?
-    * **The AI Report:** Your `AI_REPORT.md` must demonstrate *how* you verified AI-generated code, including specific examples of "Wins" and "Hallucinations."
+## Benchmark Results
 
-> For submissions, please place the deliverables in the `teams-submissions` directory of your forked repository and notify the judges.
+### GPU: NVIDIA L4 (Brev)
+
+| N | Quantum Circuit Time | Target |
+|---|---------------------|--------|
+| 20 | **7.77 seconds** | nvidia |
+
+### MTS Comparison (N=20)
+
+| Implementation | Time | Best Energy |
+|---------------|------|-------------|
+| CPU NumPy | 1.08s | 26 |
+| GPU CuPy | 15.4s | 26 |
+
+> Note: GPU overhead dominated for small N=20. Batch evaluation benefits would appear at larger population sizes.
+
+---
+
+## Test Coverage
+
+| Test Class | Description | Status |
+|------------|-------------|--------|
+| TestEnergyFunction | Manual energy calculations | ✅ 5/5 |
+| TestSignFlipSymmetry | E(s) = E(-s) | ✅ 2/2 |
+| TestReversalSymmetry | E(s) = E(s[::-1]) | ✅ 2/2 |
+| TestInteractionIndices | G2/G4 generation | ✅ 5/5 |
+| TestMTSConvergence | Algorithm finds good solutions | ✅ 3/3 |
+| TestBitstringConversion | Roundtrip preservation | ✅ 3/3 |
+| TestGeneticOperators | Combine/mutate functions | ✅ 4/4 |
+| TestQuantumComponents | CUDA-Q output | ✅ 2/2 (on qBraid) |
+
+**Total: 26/26 tests passing on qBraid**
+
+---
+
+## Key Accomplishments
+
+1. **GPU Migration**: Successfully migrated to NVIDIA L4 on Brev
+2. **Quantum Acceleration**: Ran counterdiabatic circuit on GPU (7.77s for N=20)
+3. **Classical GPU Acceleration**: Implemented CuPy-based MTS in `mts_cupy.py`
+4. **Rigorous Testing**: 26 tests covering energy function, symmetries, and convergence
+5. **Documentation**: Full AI report, presentation, and README
+
+---
+
+## Hardware Used
+
+- **CPU Testing**: qBraid (CPU-only CUDA-Q sandbox)
+- **GPU Testing**: Brev L4 GPU (CUDA 12.8, 23GB VRAM)
+
+---
+
+## Files to Review
+
+1. **[tests.py](tests.py)** - Test suite demonstrating verification approach
+2. **[AI_REPORT.md](AI_REPORT.md)** - AI workflow, verification strategy, Win/Learn/Fail log
+3. **[results_n20.json](results_n20.json)** - Raw GPU benchmark data
+4. **[PRESENTATION.md](PRESENTATION.md)** - Presentation outline
+
+---
+
+*Submitted by Team QuantumSpark for NVIDIA iQuHACK 2026*
