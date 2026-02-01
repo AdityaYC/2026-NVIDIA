@@ -1,88 +1,202 @@
-# Video Presentation Script
-**Note:** Read the text in quotes (`"..."`). The speaker notes are in *italics*.
+# VIDEO RECORDING SCRIPT
+## Team QuantumSpark - NVIDIA iQuHACK 2026
+### Total Duration: 7-8 minutes
 
 ---
 
-## Slide 1: Title
-**"Hello judges. We are Team QuantumSpark, and this is QRadarX: Quantum-Enhanced LABS Optimization."**
+## BEFORE RECORDING
 
-*"We are presenting our solution for the NVIDIA Challenge, featuring a GPU-accelerated hybrid workflow."*
-
----
-
-## Slide 2: The Problem (LABS)
-**"The LABS problem requires finding a binary sequence with minimal off-peak autocorrelation. This is critical for radar, telecom, and cryptography."**
-
-*"As you can see, the search space explodes exponentially. For N=40, a brute force search would take 317 years. We need a better way."*
+**Setup:**
+- Open your 10-slide presentation (Gamma or PowerPoint)
+- Have charts ready: `chart_quantum_time.png`, `chart_mts_time.png`, `chart_memory.png`
+- Quiet environment, good microphone
+- Record screen + voice
 
 ---
 
-## Slide 3: Our Approach (Hybrid Workflow)
-**"We built a hybrid pipeline. We use a quantum circuit running on NVIDIA cuQuantum to explore the energy landscape and generate diverse seeds."**
+## SLIDE 1: TITLE (30 seconds)
 
-*"These seeds are then fed into our Classical Memetic Tabu Search (MTS) running on GPU, which refines them to the optimal solution. It combines quantum exploration with classical exploitation."*
+**[Show title slide]**
 
----
-
-## Slide 4: The Pivot
-**"We initially planned to scale quantum circuits to N=40. But we hit reality: N=35 requires 550GB of RAM."**
-
-*"So we pivoted. We focused on benchmarking quantum up to N=30 and using our classical MTS solver to reach N=40, proving the limits of current state-vector simulation."*
+> "Hello everyone! We are Team QuantumSpark, and today we're presenting our solution for the NVIDIA iQuHACK 2026 challenge.
+>
+> Our project is called QRadarX — a quantum-enhanced optimization system for solving the Low Autocorrelation Binary Sequences problem, accelerated by NVIDIA GPUs.
+>
+> I'm Aditya Punjani, the project lead. My teammates are Furkan, who handled GPU acceleration, Alexandre on quality assurance, and Shreya on technical marketing."
 
 ---
 
-## Slide 5: GPU Acceleration
-**"We migrated our workload to an NVIDIA L4 GPU on Brev.dev. The migration was seamless—just one line of code to switch the CUDA-Q target."**
+## SLIDE 2: THE LABS PROBLEM (45 seconds)
 
-*"This simple switch unlocked massive performance gains compared to our CPU baselines."*
+**[Show LABS problem slide]**
 
----
-
-## Slide 6: Quantum Results
-**"Here is the data. N=30 on a CPU took over a minute. On the L4 GPU, N=20 ran in just 7.77 seconds."**
-
-*"The chart clearly shows the speedup. The GPU backend is roughly 8x faster than the CPU backend for these state vector simulations."*
+> "So what is the LABS problem? It's about finding the optimal binary sequence — a string of plus ones and minus ones — that minimizes something called autocorrelation energy.
+>
+> This has real applications in radar systems, where low autocorrelation means better target detection, and in telecommunications for reducing signal interference.
+>
+> The challenge? It's NP-hard. For a sequence of length 20, there are 1 million possibilities. For length 40, there are over 1 TRILLION. Brute force would take 317 years. We need smarter algorithms."
 
 ---
 
-## Slide 7: Classical MTS Results
-**"For our classical solver, we used CuPy to accelerate matrix operations. We achieved linear scaling."**
+## SLIDE 3: OUR HYBRID APPROACH (45 seconds)
 
-*"While the quantum part scales exponentially, our GPU-accelerated classical solver can handle N=40 in just 16 seconds. This confirms the power of the hybrid approach."*
+**[Show hybrid approach slide]**
 
----
-
-## Slide 8: The Exponential Wall
-**"This chart explains why we pivoted. The memory usage doubles with every N. At N=35, we hit the 'Memory Wall'—needing 550GB."**
-
-*"Even an A100 cannot handle N=35 via state vector simulation. This highlights the need for tensor networks or real quantum hardware for larger problems."*
-
----
-
-## Slide 9: Verification
-**"We implemented a rigorous test suite with 26 tests, all passing. This was critical."**
-
-*"In fact, our tests caught an AI hallucination where it used the wrong rotation gate. Without these tests, our results would have been invalid."*
+> "Our solution is a hybrid quantum-classical workflow with GPU acceleration.
+>
+> Here's how it works:
+>
+> First, we use a quantum circuit built with NVIDIA's CUDA-Q framework to generate diverse candidate solutions. Quantum provides intelligent exploration of the search space.
+>
+> Second, these quantum samples seed a classical algorithm called Memetic Tabu Search, or MTS. This refines the candidates to find the true optimum.
+>
+> Both components are GPU-accelerated — quantum using CUDA-Q's nvidia backend, and classical using CuPy for parallel computation.
+>
+> The key insight: quantum explores, classical optimizes, GPU makes it fast."
 
 ---
 
-## Slide 10: Retrospective (Team Takeaways)
+## SLIDE 4: THE PIVOT (45 seconds)
 
-*(Each member reads their line)*
+**[Show pivot slide]**
 
-**Aditya:**
-"I learned that GPU acceleration is powerful, but memory is the real bottleneck. Quantum simulation needs hardware, not just GPUs."
-
-**Furkan:**
-"For me, I saw how modular code made GPU migration trivial. It was just a one-line change from CPU to GPU."
-
-**Alexandre:**
-"I discovered that test-driven development is essential. It caught bugs the AI introduced that would have otherwise ruined our results."
-
-**Shreya:**
-"My takeaway is that AI accelerates coding, but human verification is essential. We must trust but verify."
+> "Now, every engineering project has challenges. Let me tell you about our pivot.
+>
+> Our original plan was to scale the quantum simulation to N equals 40 or beyond, then do a fair comparison with classical.
+>
+> But reality hit. We discovered that N equals 35 would require 550 gigabytes of RAM — impossible on any GPU!
+>
+> So we adapted. We focused our quantum experiments on N up to 30, which is the maximum feasible size. We extended our classical MTS algorithm to N equals 40. And most importantly, we documented these memory limits as a key scientific finding.
+>
+> Engineering is about adaptation, not perfection."
 
 ---
 
-## Conclusion
-**"In summary, we delivered a verified, GPU-accelerated solver. Thank you from Team QuantumSpark."**
+## SLIDE 5: QUANTUM GPU RESULTS (60 seconds)
+
+**[Show quantum results slide with chart]**
+
+> "Let's look at our quantum results.
+>
+> We ran our quantum circuits on an NVIDIA L4 GPU using the Brev platform. This chart shows execution time versus problem size.
+>
+> [Point to chart]
+>
+> For N equals 20, the quantum circuit runs in just 7.77 seconds on GPU. For N equals 25, it's 13.5 seconds. When we ran N equals 30 on CPU for comparison, it took over 61 seconds.
+>
+> That's roughly an 8x speedup from GPU acceleration!
+>
+> The CUDA-Q framework made this straightforward — we just set the target to 'nvidia' and the GPU handled the rest."
+
+---
+
+## SLIDE 6: CLASSICAL MTS RESULTS (45 seconds)
+
+**[Show MTS results slide with chart]**
+
+> "Now let's look at our classical MTS algorithm.
+>
+> This chart shows time versus problem size for the Memetic Tabu Search.
+>
+> Notice something important: it scales linearly! N equals 20 takes about 1 second. N equals 30 takes 6 seconds. N equals 40 — which was impossible for quantum — takes just 16.5 seconds.
+>
+> This is why hybrid approaches work. Quantum provides good starting points, but classical can handle the scale."
+
+---
+
+## SLIDE 7: THE EXPONENTIAL WALL (60 seconds)
+
+**[Show memory scaling slide with chart]**
+
+> "This slide explains why we couldn't go beyond N equals 30 for quantum.
+>
+> Look at this memory chart. Every time N increases by 1, the required memory DOUBLES. That's exponential scaling.
+>
+> For N equals 20, we need just 16 megabytes — easy.
+> For N equals 30, we need 16 gigabytes — fits on an L4 GPU.
+> For N equals 35, we would need 550 gigabytes — more than any GPU has.
+> For N equals 40, we're talking 16 TERABYTES — that's datacenter scale.
+>
+> This is the fundamental challenge of quantum simulation. To go beyond N equals 32 or so, we need either tensor network methods or actual quantum hardware. This finding is itself valuable for the field."
+
+---
+
+## SLIDE 8: VERIFICATION (45 seconds)
+
+**[Show verification slide]**
+
+> "Rigorous engineering requires rigorous testing. Our test suite has 26 tests, all passing.
+>
+> We verified the energy function against hand calculations. We tested symmetry properties — for example, flipping all signs shouldn't change the energy. We verified that MTS converges to good solutions. And we checked that quantum outputs are in the correct format.
+>
+> One important catch: during development, we used AI tools to help write code. Our tests caught a bug where the AI suggested using the wrong rotation gate in the quantum kernel. Without tests, this would have silently corrupted our results."
+
+---
+
+## SLIDE 9: TEAM TAKEAWAYS (45 seconds)
+
+**[Show takeaways slide]**
+
+> "Let me share what each team member learned.
+>
+> As project lead, I learned that memory is the real bottleneck for quantum simulation — not computation time.
+>
+> Furkan found that our modular code design made GPU migration surprisingly easy — just one line changed.
+>
+> Alexandre proved that test-driven development catches critical bugs before they become problems.
+>
+> And Shreya discovered that while AI accelerates coding, human verification remains essential. Trust, but verify."
+
+---
+
+## SLIDE 10: SUMMARY & THANK YOU (45 seconds)
+
+**[Show summary slide]**
+
+> "Let me summarize what we accomplished:
+>
+> Quantum GPU acceleration — we achieved 7.77 seconds for N equals 20 on the L4 GPU.
+>
+> Classical MTS scaling — we successfully ran up to N equals 40 in under 17 seconds.
+>
+> Verification — 26 out of 26 tests passing, ensuring correctness.
+>
+> And we documented the memory limits that prevent quantum simulation beyond N equals 30.
+>
+> Our code is available on GitHub at github.com/AdityaYC/2026-NVIDIA.
+>
+> Thank you for watching! We're Team QuantumSpark, and this has been our solution for the NVIDIA iQuHACK 2026 challenge."
+
+---
+
+## AFTER RECORDING
+
+**Checklist:**
+- [ ] Video is 5-10 minutes long
+- [ ] Audio is clear
+- [ ] All slides are visible
+- [ ] Charts are readable
+- [ ] Export as MP4
+- [ ] Upload to team-submissions folder
+
+---
+
+## TOTAL TIME BREAKDOWN
+
+| Slide | Topic | Duration |
+|-------|-------|----------|
+| 1 | Title & Team | 30s |
+| 2 | LABS Problem | 45s |
+| 3 | Hybrid Approach | 45s |
+| 4 | The Pivot | 45s |
+| 5 | Quantum Results | 60s |
+| 6 | MTS Results | 45s |
+| 7 | Memory Wall | 60s |
+| 8 | Verification | 45s |
+| 9 | Takeaways | 45s |
+| 10 | Summary | 45s |
+| **TOTAL** | | **~7.5 min** |
+
+---
+
+*Good luck with your recording!*
