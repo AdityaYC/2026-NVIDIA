@@ -44,18 +44,20 @@ sample/
 
 ### GPU: NVIDIA L4 (Brev)
 
-| N | Quantum Circuit Time | Target |
-|---|---------------------|--------|
-| 20 | **7.77 seconds** | nvidia |
+| N | Quantum Circuit Time | Trotter Steps | Min Energy |
+|---|---------------------|---------------|------------|
+| 20 | **7.77 seconds** | 30 | 90 |
+| 25 | **13.50 seconds** | 5 | 156 |
 
-### MTS Comparison (N=20)
+### MTS Comparison
 
-| Implementation | Time | Best Energy |
-|---------------|------|-------------|
-| CPU NumPy | 1.08s | 26 |
-| GPU CuPy | 15.4s | 26 |
+| N | Implementation | Time | Best Energy |
+|---|---------------|------|-------------|
+| 20 | CPU NumPy | 1.08s | 26 |
+| 20 | GPU CuPy | 15.4s | 26 |
+| 25 | CPU NumPy | 2.40s | 48 |
 
-> Note: GPU overhead dominated for small N=20. Batch evaluation benefits would appear at larger population sizes.
+> Note: GPU overhead dominated for small N. Batch evaluation benefits appear at larger population sizes.
 
 ---
 
