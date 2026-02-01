@@ -56,3 +56,6 @@ Thumbs.db
 
 # Benchmark outputs (keep results, ignore temp)
 *.prof
+
+# Video Presentation
+./team-submissions/VIDEO_SCRIPT.md
