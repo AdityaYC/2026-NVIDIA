@@ -1,0 +1,18 @@
+{
+    "metadata": {
+        "N": 30,
+        "backend": "nvidia",
+        "timestamp": "2026-02-01T04:35:57.617123"
+    },
+    "quantum": {
+        "quantum_time_seconds": 61.67730402946472,
+        "n_steps": 3,
+        "shots": 500,
+        "unique_samples": 500,
+        "min_energy": 187
+    },
+    "mts": {
+        "time": 3.887119770050049,
+        "best_energy": 83
+    }
+}
